@@ -1,0 +1,76 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "mir_gatboost"
+version = "0.0.1"
+description = "A short description of the project."
+authors = [
+  { name = "Antonio Pellicani" },
+]
+
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    
+]
+dependencies = [
+    "loguru",
+    "pip",
+    "python-dotenv",
+    "ruff",
+    "tqdm",
+    "typer",
+    "matplotlib>=3.10.9",
+    "numpy>=2.4.4",
+    "pandas>=3.0.3",
+    "scikit-learn==1.7.0",
+    "beautifulsoup4==4.13.4",
+    "requests==2.32.4",
+    "annoy>=1.17.3",
+    "torch>=2.12.0",
+    "torchvision>=0.27.1",
+    "torch-geometric>=2.8.0",
+    "pyg-lib>=0.7.0",
+    "torch-scatter>=2.1.2",
+    "torch-sparse>=0.6.18",
+    "attrdict>=2.0.1",
+]
+requires-python = ">=3.12, <3.14"
+
+
+[tool.uv]
+package = true
+find-links = ["https://data.pyg.org/whl/torch-2.12.0+cu130.html"]
+no-build-isolation-package = ["torch-scatter", "torch-sparse", "pyg-lib"]
+
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu130", marker = "sys_platform == 'linux' or sys_platform == 'win32'" }
+]
+torchvision = [
+  { index = "pytorch-cu130", marker = "sys_platform == 'linux' or sys_platform == 'win32'" }
+]
+
+
+[tool.ruff]
+line-length = 99
+src = ["mir_gatboost"]
+include = ["pyproject.toml", "mir_gatboost/**/*.py"]
+
+
+[tool.ruff.lint]
+extend-select = ["I"]  # Add import sorting
+
+
+[tool.ruff.lint.isort]
+known-first-party = ["mir_gatboost"]
+force-sort-within-sections = true
